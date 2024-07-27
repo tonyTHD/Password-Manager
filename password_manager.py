@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox
+import tkinter.font as tkFont
 
 # Generate or load encryption key
 def load_key():
@@ -42,7 +43,7 @@ def view(master_key):
             view_window.title("Password List")
 
             # Create a Text widget to display passwords
-            text_widget = tk.Text(view_window)
+            text_widget = tk.Text(view_window, wrap=tk.WORD, font=font, width=60, height=20)
             text_widget.pack()
 
             # Insert data into Text widget
@@ -74,31 +75,41 @@ def add():
 root = tk.Tk()
 root.title("Password Manager")
 
+#background
+root.configure(bg="light gray")
+
+#Defining a font
+font = tkFont.Font(family="Helvetica", size=12)
+
+#tk.Frame for better layout management and organization
+main_frame = tk.Frame(root, padx=20, pady=20)
+main_frame.grid(row=0, column=0)
+
 # Labels and Entries for adding passwords
-website_label = tk.Label(root, text="Website/APP Name:")
+website_label = tk.Label(main_frame, text="Website/APP Name:", font=font)
 website_label.grid(row=0, column=0, padx=10, pady=5)
-website_entry = tk.Entry(root)
+website_entry = tk.Entry(main_frame, font=font, width=30)
 website_entry.grid(row=0, column=1, padx=10, pady=5)
 
-username_label = tk.Label(root, text="Username:")
+username_label = tk.Label(main_frame, text="Username:", font=font)
 username_label.grid(row=1, column=0, padx=10, pady=5)
-username_entry = tk.Entry(root)
+username_entry = tk.Entry(main_frame, font=font, width=30)
 username_entry.grid(row=1, column=1, padx=10, pady=5)
 
-password_label = tk.Label(root, text="Password:")
+password_label = tk.Label(main_frame, text="Password:", font=font)
 password_label.grid(row=2, column=0, padx=10, pady=5)
-password_entry = tk.Entry(root, show="*")
+password_entry = tk.Entry(main_frame, show="*", font=font, width=30)
 password_entry.grid(row=2, column=1, padx=10, pady=5)
 
-add_button = tk.Button(root, text="Add Password", command=add)
+add_button = tk.Button(main_frame, text="Add Password", command=add, font=font, padx=10, pady=5)
 add_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky=tk.W+tk.E)
 
-view_button = tk.Button(root, text="View Passwords", command=lambda: view(master_key_entry.get().encode()))
+view_button = tk.Button(main_frame, text="View Passwords", command=lambda: view(master_key_entry.get().encode()), font=font, padx=10, pady=5)
 view_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky=tk.W+tk.E)
 
-master_key_label = tk.Label(root, text="Enter Master Key:")
+master_key_label = tk.Label(main_frame, text="Enter Master Key:", font=font)
 master_key_label.grid(row=5, column=0, padx=10, pady=5)
-master_key_entry = tk.Entry(root, show="*")
+master_key_entry = tk.Entry(main_frame, show="*", font=font, width=30)
 master_key_entry.grid(row=5, column=1, padx=10, pady=5)
 
 root.mainloop()
